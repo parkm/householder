@@ -1,0 +1,60 @@
+User
+   - tracks name, personal data, logins, passwords, and role (admin, custom roles)
+   - holds CC data for payments, so needs tight security
+
+Context (base)
+  - has_many Components
+
+  TaskBoard < Context
+    - has_many Tasks
+    - tracks a configurable query of Tasks
+      -- e.g. to view current_user's tasks or to view everyone's tasks (if allowed)
+
+  MessageBoard < Context
+    - has_many Messages
+
+  BudgetBoard
+    - has_many Transactions
+
+  People < Context
+    - a member of the "household"
+    - can be thought of as a profile and collection of things
+      such as Tasks, Debts, and Messages (DMs) that relate back to the user
+    - has_one User
+      -- all People are Users, but not all Users are People
+         this is useful if the someone does not want to be assigned tasks, debts, etc.
+    - has_many Transactions
+    - associated Messages are DMs
+
+Component (base)
+  - belongs_to Context
+  - has_many Components through Links
+
+  Task < Component
+    - a task is a "thing" to do
+    - has an optional due date/time, title, and description
+    - assigned to any number of People
+
+  Message < Component
+
+  Notification < Component
+
+Link
+  - Provides a link between two components
+
+  Event
+    - A link with a specified start time, poll time, end time and associated actions for each
+
+Transaction
+  Debt < Transaction
+    - belongs_to People
+
+  Payment < Transaction
+
+NotificationHandler
+  - Flexible, configurable handlers for notifications
+  - Would be cool to support plugins for various channels (like IRC, or SSH, etc.)
+  - Typically will be SMS or email
+
+* optional; will be toggle-able via settings
+
