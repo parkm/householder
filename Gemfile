@@ -38,7 +38,7 @@ group :development, :test do
   # Use Jasmine for JS Tests
   gem 'jasmine'
   # And RSpec for Ruby
-  gem 'rspec'
+  gem 'rspec-rails'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
